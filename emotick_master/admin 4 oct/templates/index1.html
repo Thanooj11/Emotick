@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<title>EMOTICK</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  html,
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Raleway", sans-serif
+  }
+
+
+</style>
+
+
+
+<script>
+
+  var happy = '{{ happy }}';
+
+  var sad = '{{ sad }}';
+
+  var okay = '{{ okay }}';
+
+  var total = +happy + +sad + +okay;
+
+  var room = document.getElementById("room");
+
+
+</script>
+
+
+
+
+
+<body class="w3-light-grey">
+
+
+
+  <!-- Top container -->
+
+  <div class=" w3-bar w3-top w3-black w3-large " style="z-index:4 ">
+
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey " onclick="w3_open(); ">
+      <i class="fa fa-bars "></i> Menu</button>
+
+    <span class="w3-bar-item w3-right ">EMOTICK</span>
+
+  </div>
+
+
+
+  <!-- Sidebar/menu -->
+
+  <nav class="w3-sidebar w3-collapse w3-white w3-animate-left " style="z-index:3;width:300px; " id="mySidebar ">
+    <br>
+
+    <div class="w3-container w3-row ">
+
+
+
+      <div class="w3-col s8 w3-bar ">
+
+        <span>Welcome
+          <strong>Admin</strong>
+        </span>
+        <br>
+
+
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="w3-container ">
+
+      <h5>Dashboard</h5>
+
+    </div>
+
+    <div class="w3-bar-block ">
+
+      <a href="# " class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black " onclick="w3_close()
+  " title="close menu ">
+        Close Menu</a>
+
+      <a href="# " class="w3-bar-item w3-button w3-padding w3-blue "> General</a>
+      <div class="w3-dropdown-click ">
+
+
+        <button href class="w3-bar-item w3-button w3-padding" onclick="window.location.href='index2.html'">Add Question</button>
+        <!-- <script>
+          function myClick1() { -->
+
+
+
+            <!-- // var x = document.getElementById("myOverlay");
+            // if (x.style.display === "none") {
+            //   x.style.display = "block";
+            // } else {
+            //   x.style.display = "none";
+
+              // var x = document.getElementById("click_demo1");
+              // if (x.className.indexOf("w3-show") == -1) {
+              //   x.className += " w3-show";
+              // } else {
+              //   x.className = x.className.replace(" w3-show", "");
+              // } -->
+            }
+        <!-- </script> -->
+        <div class="w3-dropdown-content w3-bar-block w3-border " id="click_demo1">
+
+          <input type="text" name="addq" />
+        </div>
+      </div>
+
+      <div class="w3-dropdown-click ">
+
+        <button href="# " class="w3-bar-item w3-button w3-padding" onclick="myClick()"> Filters </button>
+        <script>
+            function myClick() {
+              var x = document.getElementById("click_demo");
+              if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+              } else {
+                x.className = x.className.replace(" w3-show", "");
+              }
+            }
+        </script>
+
+        <div class="w3-dropdown-content w3-bar-block w3-border " id="click_demo">
+
+          <form action="http://176.23.8.165:5010/submit" method="POST">
+            <table name="sidebar">
+
+              <tr>
+                <td>
+                  <p>Question
+                </td>
+
+                <td>
+                  <select name="qid" value="qid" required>
+                    <option value="">Select question</option>
+                    <option value="How do you feel about the stalls?">How do you feel about the stalls?</option>
+                    <option value="How do you feel about the session?">How do you feel about the session?</option>
+                    <option value="How was your meeting room experience?">How was your meeting room experience?</option>
+                    <option value="How was your overall Experience?">How was your overall Experience?</option>
+                    <option value="How is your day?">How is your day?</option>
+                  </select>
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Location</p>
+                </td>
+                <td>
+                  <!-- <input type="text" name="location" /> -->
+                  <select name="location" value="location">
+                    <option value="">Select Location</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Paris">Paris</option>
+                  </select>
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Building</td>
+                <td>
+                  <!-- <input type="text" name="building" /> -->
+                  <select name="building" value="building">
+                    <option value="">Select Building</option>
+                    <option value="ITPL">ITPL</option>
+                    <option value="Voyager">Voyager</option>
+                    <option value="Victor">Victor</option>
+                    <option value="Pritech">Pritech</option>
+                    <option value="Bangalore">DLF Park</option>
+                    <option value="Trill">Trill</option>
+                  </select>
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Floor</td>
+                <td>
+                  <input type="text" name="floor" />
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Room</td>
+                <td>
+                  <input type="text" name="room" />
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Start Date</td>
+                <td>
+                  <input type="date" name="sdate" id="sdate" placeholder="yyyy-mm-dd">
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>End Date</td>
+                <td>
+                  <input type="date" name="edate" id="edate" placeholder="yyyy-mm-dd">
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>Start Time</td>
+                <td>
+                  <select name="stime" value="stime">
+                    <option value="">Choose here</option>
+                    <option value="00:00">00:00 am</option>
+                    <option value="01:00">01:00 am</option>
+                    <option value="02:00">02:00 am</option>
+                    <option value="03:00">03:00 am</option>
+                    <option value="04:00">04:00 am</option>
+                    <option value="05:00">05:00 am</option>
+                    <option value="06:00">06:00 am</option>
+                    <option value="07:00">07:00 am</option>
+                    <option value="08:00">08:00 am</option>
+                    <option value="09:00">09:00 am</option>
+                    <option value="10:00">10:00 am</option>
+                    <option value="11:00">11:00 am</option>
+                    <option value="12:00">12:00 pm</option>
+                    <option value="13:00">13:00 pm</option>
+                    <option value="14:00">14:00 pm</option>
+                    <option value="15:00">15:00 pm</option>
+                    <option value="16:00">16:00 pm</option>
+                    <option value="17:00">17:00 pm</option>
+                    <option value="18:00">18:00 pm</option>
+                    <option value="19:00">19:00 pm</option>
+                    <option value="20:00">20:00 pm</option>
+                    <option value="21:00">21:00 pm</option>
+                    <option value="22:00">22:00 pm</option>
+                    <option value="23:00">23:00 pm</option>
+                  </select>
+                  </p>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+
+                  <p>End Time</td>
+                <td>
+                  <select name="etime" value="etime">
+                    <option value="">Choose here</option>
+                    <option value="00:00">00:00 am </option>
+                    <option value="01:00">01:00 am</option>
+                    <option value="02:00">02:00 am</option>
+                    <option value="03:00">03:00 am</option>
+                    <option value="04:00">04:00 am</option>
+                    <option value="05:00">05:00 am</option>
+                    <option value="06:00">06:00 am</option>
+                    <option value="07:00">07:00 am</option>
+                    <option value="08:00">08:00 am</option>
+                    <option value="09:00">09:00 am</option>
+                    <option value="10:00">10:00 am</option>
+                    <option value="11:00">11:00 am</option>
+                    <option value="12:00">12:00 pm</option>
+                    <option value="13:00">13:00 pm</option>
+                    <option value="14:00">14:00 pm</option>
+                    <option value="15:00">15:00 pm</option>
+                    <option value="16:00">16:00 pm</option>
+                    <option value="17:00">17:00 pm</option>
+                    <option value="18:00">18:00 pm</option>
+                    <option value="19:00">19:00 pm</option>
+                    <option value="20:00">20:00 pm</option>
+                    <option value="21:00">21:00 pm</option>
+                    <option value="22:00">22:00 pm</option>
+                    <option value="23:00">23:00 pm</option>
+                  </select>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="submit" value="submit" />
+                </td>
+
+
+                <td> &nbsp;&nbsp;&nbsp; </td>
+              </tr>
+              <tr>
+                <td> &nbsp;&nbsp;&nbsp; </td>
+                <td> &nbsp;&nbsp;&nbsp; </td>></tr>
+            </table>
+
+
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+
+
+
+  <!-- Overlay effect when opening sidebar on small screens -->
+
+  <div class="w3-overlay w3-hide-large w3-animate-opacity " onclick="w3_close() " style="cursor:pointer " title="close
+  side menu " id="myOverlay "></div>
+
+
+
+  <!-- !PAGE CONTENT! -->
+
+  <div class="w3-main " style="margin-left:300px;margin-top:43px; " id="main ">
+
+
+
+
+    <!-- Header -->
+
+    <header class="w3-container " style="padding-top:22px ">
+
+      <h5>
+        <b>
+          <i class="fa fa-dashboard "></i> My Dashboard</b>
+      </h5>
+
+    </header>
+
+
+
+    <div class="w3-row-padding w3-margin-bottom ">
+
+      <div class="w3-quarter ">
+
+        <div class="w3-container w3-teal w3-padding-16 ">
+
+          <div class="w3-left ">
+            <i class="fa fa-smile-o w3-xxxlarge "></i>
+          </div>
+
+          <div class="w3-right ">
+
+            <h3>
+
+              <script type="text/javascript ">
+
+                document.write(happy)
+
+              </script>
+
+            </h3>
+
+          </div>
+
+          <div class="w3-clear "></div>
+
+          <h4>Happy</h4>
+
+        </div>
+
+      </div>
+
+      <div class="w3-quarter ">
+
+        <div class="w3-container w3-amber w3-padding-16 ">
+
+          <div class="w3-left ">
+            <i class="fa fa-meh-o w3-xxxlarge "></i>
+          </div>
+
+          <div class="w3-right ">
+
+            <h3>
+
+              <script type="text/javascript ">
+
+                document.write(okay)
+
+              </script>
+
+            </h3>
+
+          </div>
+
+          <div class="w3-clear "></div>
+
+          <h4>Okay</h4>
+
+        </div>
+
+      </div>
+
+      <div class="w3-quarter ">
+
+        <div class="w3-container w3-red w3-padding-16 ">
+
+          <div class="w3-left ">
+            <i class="fa fa-frown-o w3-xxxlarge "></i>
+          </div>
+
+          <div class="w3-right ">
+
+            <h3>
+
+              <script type="text/javascript ">
+
+                document.write(sad)
+
+              </script>
+
+            </h3>
+
+          </div>
+
+          <div class="w3-clear "></div>
+
+          <h4>Sad</h4>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="w3-container " id="myOverlay">
+
+      <h5>General Stats</h5>
+
+      <p>Happy</p>
+
+      <div class="w3-grey ">
+
+        <div class="w3-container w3-center w3-padding w3-green ">
+
+          <h3>
+
+            <script type="text/javascript ">
+
+              document.write(Math.floor(happy * 100 / total))
+
+            </script> %
+
+          </h3>
+
+        </div>
+
+      </div>
+
+
+
+      <p>Okay</p>
+
+      <div class="w3-grey ">
+
+        <div class="w3-container w3-center w3-padding w3-blue ">
+
+          <h3>
+
+            <script type="text/javascript ">
+
+              document.write(Math.floor(okay * 100 / total))
+
+            </script> %
+
+          </h3>
+
+        </div>
+
+      </div>
+
+
+
+      <p>Sad</p>
+
+      <div class="w3-grey ">
+
+        <div class="w3-container w3-center w3-padding w3-red ">
+
+          <h3>
+
+            <script type="text/javascript ">
+
+              document.write(Math.floor(sad * 100 / total))
+
+            </script> %
+
+          </h3>
+
+        </div>
+
+      </div>
+
+    </div>
+    <br>
+
+    <!-- End page content -->
+
+  </div>
+
+
+  <script>
+
+      // Get the Sidebar
+
+      var mySidebar = document.getElementById("mySidebar ");
+
+      var main = document.getElementById("main ");
+
+
+
+      // Get the DIV with overlay effect
+
+      var overlayBg = document.getElementById("myOverlay ");
+
+
+
+      // Toggle between showing and hiding the sidebar, and add overlay effect
+
+      function w3_open() {
+
+        if (mySidebar.style.display === 'block') {
+
+          mySidebar.style.display = 'none';
+
+          overlayBg.style.display = 'none';
+
+
+
+
+
+        } else {
+
+          mySidebar.style.display = 'block';
+
+          overlayBg.style.display = 'block';
+
+        }
+
+
+
+      }
+
+
+
+      // Close the sidebar with the close button
+
+      function w3_close() {
+
+        mySidebar.style.display = 'none';
+
+        overlayBg.style.display = 'none';
+
+      }
+
+  </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html>
+<link type="text/css" href="//fonts.googleapis.com/css?family=Cuprum" />
+
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        var question = '{{ question }}';
+
+        var user = ''
+        var room_type = ''
+    </script>
+    <script>
+
+
+
+        window.setInterval(function () {
+            heartbeat(user, room_type);
+        }, 15000);
+
+        window.setInterval(function () {
+            check_heartbeat();
+        }, 30000);
+
+        function check_heartbeat() {
+            $.ajax({
+                url: "{{ url_for('check_heartbeat') }}",
+                method: "POST",
+                data: (""),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (data) {
+                    console.log(data);
+                }
+
+            });
+
+        }
+
+
+
+        function heartbeat(user, room_type) {
+            $.ajax({
+                url: "{{ url_for('heart_beat') }}",
+                method: "POST",
+                data: (user + " " + room_type),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (data) {
+                    console.log(data);
+                }
+
+            });
+
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toGMTString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            
+            var floor = getCookie("floor");//6-aug-18
+
+            user = getCookie("username");
+            room_type = getCookie("room_type");
+            if (user != "" && room_type != "") {
+
+                ajaxfunForId(user, room_type);
+            }
+            else if (room_type == "" && user == "") {
+                room_type = prompt("Please enter your room_type:", "");
+                if (room_type != "" && room_type != null) {
+                    setCookie("room_type", room_type, 30);
+                }
+                user = prompt("Please enter your id:", "");
+                if (user != "" && user != null) {
+                    setCookie("username", user, 30);
+                }
+            }
+            // else if (user == "") {
+            //     user = prompt("Please enter your id:", "");
+            //     if (user != "" && user != null) {
+            //         setCookie("username", user, 30);
+            //     }
+            // }
+            // else if (room_type == "") {
+            //     room_type = prompt("Please enter your room_type:", "");
+            //     if (room_type != "" && room_type != null) {
+            //         setCookie("room_type", room_type, 30);
+            //     }
+            // }
+
+
+        }
+        function ajaxfunForId(user, room_type) {
+            //alertFunction();
+            $(document).ready(function () {
+                $('button').on('click', function () {
+                    $.ajax({
+                        url: "{{ url_for('data_post') }}",
+                        method: "POST",
+                        data: ($(this).attr("id") + " " + user + " " + room_type),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function (data) {
+                            console.log(data);
+                        }
+
+                    });
+
+
+                    //window.location.reload();
+                    //window.location.href="http://176.23.5.12:7005/thank_you";
+                    window.location.reload();
+                }); myQuestion();
+            });
+        }
+
+        function alertFunction() {
+
+            //window.location.href = "/thank_you";
+            setTimeout(function(){window.location.href = "/thank_you"},0);
+        }
+        
+    </script>
+    <style>
+        button {
+
+            background-color: Transparent;
+
+            background-repeat: no-repeat;
+
+            border: none;
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            outline: none;
+
+
+
+        }
+
+
+
+        img {
+
+            width: 380px;
+
+            height: 450px;
+
+        }
+
+
+
+        .zoom {
+
+            justify-content: space-around;
+
+            transition: transform 2s;
+            /* Animation */
+            margin: 0 auto;
+
+            display: inline-block;
+
+        }
+
+
+
+        .zoom:hover {
+
+            transform: scale(1.28);
+            /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+
+        .float {
+            float: left;
+        }
+
+        .center {
+            margin: 0;
+            margin-top: 10%;
+            margin-left: 47px;
+        }
+
+        #snackbar {
+
+            visibility: hidden;
+
+            width: 250px;
+
+
+
+            background-color: #333;
+
+            color: #fff;
+
+            text-align: center;
+
+            border-radius: 2px;
+
+            padding: 16px;
+
+            position: fixed;
+
+            z-index: 1;
+
+            bottom: 30px;
+
+            font-size: 17px;
+
+            left: 40%;
+
+        }
+
+
+
+        #snackbar.show {
+
+            visibility: visible;
+
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+
+        }
+
+
+
+        @-webkit-keyframes fadein {
+
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+        }
+
+
+
+        @keyframes fadein {
+
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+        }
+
+
+
+        @-webkit-keyframes fadeout {
+
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+
+        }
+
+
+
+        @keyframes fadeout {
+
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+
+        }
+
+
+
+        .greenimages {
+
+            background-image: url("../static/img/1A.jpg");
+
+            width: 400px;
+
+            height: 600px;
+
+            background-size: 80%;
+
+            background-repeat: no-repeat;
+
+            background-position: center;
+
+        }
+
+        .yellowimages {
+
+            background-image: url("../static/img/1B.jpg");
+
+            width: 400px;
+
+            height: 600px;
+
+            background-size: 80%;
+
+            background-repeat: no-repeat;
+
+            background-position: center;
+
+        }
+
+        .redimages {
+
+            background-image: url("../static/img/1C.jpg");
+
+            width: 400px;
+
+            height: 600px;
+
+            background-size: 80%;
+
+            background-repeat: no-repeat;
+
+            background-position: center;
+
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body onload="checkCookie()">
+
+
+    <h3 style="text-align:center; font-family:tahoma; font-size:300%;">
+        <script type="text/javascript">document.write(question);</script>
+    </h3>
+
+
+
+    <form action="/" method="post" name="form1" id="f1">
+
+        <div id="alert">
+
+            <div class="center">
+                <div class="float">
+                    <button class="zoom greenimages" onclick="alertFunction()" type="submit" name="submit" value="Happy" id="Happy"> </button>
+                    <div id="snackbar">Thank you for your response</div>
+                </div>
+
+                <div class="float">
+                    <button class="zoom yellowimages" onclick="alertFunction()" type="submit" name="submit" value="Okay" id="Okay"></button>
+                    <div id="snackbar">Thank you for your response</div>
+                </div>
+
+
+                <div class="float">
+                    <button class="zoom redimages" onclick="alertFunction()" type="submit" name="submit" value="Sad" id="Sad"></button>
+                    <div id="snackbar">Thank you for your response</div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+</body>
+
+</html>

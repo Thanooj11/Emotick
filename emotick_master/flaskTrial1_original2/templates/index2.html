@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie() {
+    var user=getCookie("username");
+    if (user != "") {
+        
+	ajaxfun(user);
+    } else {
+       user = prompt("Please enter your id:","");
+       if (user != "" && user != null) {
+           setCookie("username", user, 30);
+       }
+    }
+}
+function ajaxfun(user)
+{
+                    $(document).ready(function() {
+                        $('button').on('click', function() {
+                            $.ajax({
+                                url: "{{ url_for('data_post') }}",
+                                method: "POST",
+                                data:($(this).attr("id")+ " " +user),
+                                contentType: 'application/json;charset=UTF-8',
+                                success: function(data) {
+                                    console.log(data);
+                                }
+                            });
+			
+			
+			window.location.reload();
+                        });alertfunction();
+                    });
+}
+
+  function alertfunction()
+  {
+    $('.error').text($(this).data('text')).fadeIn(400).delay(3000).fadeOut(400); 
+};
+  }
+
+</script>
+
+
+<style>
+
+.error {
+    width:200px;
+    height:20px;
+    height:auto;
+    position:absolute;
+    left:50%;
+    margin-left:-100px;
+    bottom:10px;
+    background-color: #383838;
+    color: #F0F0F0;
+    font-family: Calibri;
+    font-size: 20px;
+    padding:10px;
+    text-align:center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
+
+
+button {
+
+    background-color: Transparent;
+
+    background-repeat:no-repeat;
+
+    border: none;
+
+    cursor:pointer;
+
+    overflow: hidden;
+
+    outline:none;
+
+}
+
+
+
+img {
+
+    width:380px;
+
+    height:450px;
+
+}
+
+
+
+.zoom {
+
+    display: flex; justify-content:space-around;
+
+    transition: transform 2s; /* Animation */
+
+    margin: 0 auto;
+
+    display:inline-block;
+
+}
+
+
+
+.zoom:hover {
+
+    transform: scale(1.28); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+
+}
+
+
+
+</style>
+</head>
+<body onload="checkCookie()">
+
+
+
+<div class='error' style='display:none'></div>
+<button data-text='I did something!'>Do something!</button>
+
+
+<form action="/" method="post" name="form1" id="f1">
+
+<div id='alrt' style="fontWeight = 'bold'"></div>
+
+<tr>    <div class="zoom"><td><button onclick="alertfunction()" type="submit" name="submit" value ="Happy"  style="margin-top:30%" id = "Happy" >
+
+	<img src="/static/img/1A.jpg"/> </button></td></div>
+
+	<div class="zoom"><td><button onclick="alertfunction()"  type="submit" name="submit" value ="Okay"  style="margin-top:30%" id = "Okay" > 
+
+	<img src="/static/img/1B.jpg"/> </button></td></div>
+
+	<div class="zoom"><td><button onclick="alertfunction()" type="submit" name="submit" value ="Sad"  style="margin-top:30%" id = "Sad" > 
+
+	<img src="/static/img/1C.jpg"/> </button></td></div>
+
+</tr>
+
+</form>
+
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
+
+
